@@ -1,3 +1,4 @@
+const chalk = require('chalk');
 const { loadNotes, saveNotes } = require('./utils');
 
 const getNotes = () => 'Your notes...';
@@ -15,9 +16,9 @@ const addNote = function (title, body) {
     });
   
     saveNotes(notes);
-    console.log('New note added!');
+    console.log(chalk.inverse.green('New note added!'));
   } else {
-    console.log('Note title taken!');
+    console.log(chalk.inverse.red('Note title taken!'));
   }
 }
 
@@ -29,9 +30,9 @@ const removeNote = function (title) {
 
   if (filteredNotes.length !== notes.length) {
     saveNotes(filteredNotes);
-    console.log(`Removed note with title '${title}'`);
+    console.log(chalk.green.inverse(`Removed note with title '${title}'`));
   } else {
-    console.log('Note not found!');
+    console.log(chalk.inverse.red('Note not found!'));
   }
 }
 
