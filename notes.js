@@ -1,5 +1,4 @@
-const fs = require('fs');
-const { NOTES_FILENAME } = require('./config');
+const { loadNotes, saveNotes } = require('./utils');
 
 const getNotes = () => 'Your notes...';
 
@@ -20,27 +19,24 @@ const addNote = function (title, body) {
   } else {
     console.log('Note title taken!');
   }
-  
 }
 
-const saveNotes = function (notes) {
-  const dataJSON = JSON.stringify(notes);
-  
-  fs.writeFileSync(NOTES_FILENAME, dataJSON);
-}
+const removeNote = function (title) {
+  const notes = loadNotes();
+  const filteredNotes = notes.filter(function (note) {
+    return note.title !== title;
+  });
 
-const loadNotes = function () {
-  try {
-    const dataBuffer = fs.readFileSync(NOTES_FILENAME);
-    const dataJSON = dataBuffer.toString();
-    
-    return JSON.parse(dataJSON);  
-  } catch (e) {
-    return [];
+  if (filteredNotes.length !== notes.length) {
+    saveNotes(filteredNotes);
+    console.log(`Removed note with title '${title}'`);
+  } else {
+    console.log('Note not found!');
   }
 }
 
 module.exports = {
   getNotes,
-  addNote
+  addNote,
+  removeNote
 };

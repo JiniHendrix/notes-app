@@ -21,8 +21,8 @@ yargs.command({
       type: 'string'
     }
   },
-  handler: function (argv) {
-    notes.addNote(argv.title, argv.body);
+  handler: function ({ title, body }) {
+    notes.addNote(title, body);
   }
 })
 
@@ -30,8 +30,8 @@ yargs.command({
 yargs.command({
   command: 'remove',
   describe: 'Remove a new note',
-  handler: function () {
-    console.log('Removing a note')
+  handler: function ({ title }) {
+    notes.removeNote(title)
   }
 })
 
