@@ -3,11 +3,9 @@ const { loadNotes, saveNotes } = require('./utils');
 
 const getNotes = () => 'Your notes...';
 
-const addNote = function (title, body) {
+const addNote = (title, body) => {
   const notes = loadNotes();
-  const duplicateNotes = notes.filter(function (note) {
-    return note.title === title;
-  });
+  const duplicateNotes = notes.filter(note => note.title === title);
 
   if (!duplicateNotes.length) {
     notes.push({
@@ -22,11 +20,9 @@ const addNote = function (title, body) {
   }
 }
 
-const removeNote = function (title) {
+const removeNote = title => {
   const notes = loadNotes();
-  const filteredNotes = notes.filter(function (note) {
-    return note.title !== title;
-  });
+  const filteredNotes = notes.filter(note => note.title !== title);
 
   if (filteredNotes.length !== notes.length) {
     saveNotes(filteredNotes);
