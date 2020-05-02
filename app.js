@@ -29,7 +29,14 @@ yargs.command({
 // Register Remove command
 yargs.command({
   command: 'remove',
-  describe: 'Remove a new note',
+  describe: 'Remove a note',
+  builder: {
+    title: {
+      describe: 'Title of note',
+      demandOption: true,
+      type: 'string',
+    }
+  },
   handler({ title }) {
     notes.removeNote(title)
   }
@@ -48,8 +55,15 @@ yargs.command({
 yargs.command({
   command: 'read',
   describe: 'read note',
-  handler() {
-    console.log('Reading notes')
+  builder: {
+    title: {
+      describe: 'Title of note',
+      demandOption: true,
+      type: 'string',
+    }
+  },
+  handler({ title }) {
+    notes.readNote(title);
   }
 })
 

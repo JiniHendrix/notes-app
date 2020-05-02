@@ -1,6 +1,17 @@
 const chalk = require('chalk');
 const { loadNotes, saveNotes } = require('./utils');
 
+const readNote = (title) => {
+  const note = loadNotes().find(note => note.title === title);
+
+  if (note) {
+    console.log(chalk.inverse.green(note.title));
+    console.log(note.body);
+  } else {
+    console.log(chalk.inverse.red('Note not found!'))
+  }
+}
+
 const listNotes = () => {
   const notes = loadNotes();
   
@@ -40,6 +51,7 @@ const removeNote = title => {
 }
 
 module.exports = {
+  readNote,
   listNotes,
   addNote,
   removeNote
